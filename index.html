@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Excel to PDF Converter – SaaS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-100 to-purple-200 min-h-screen flex items-center justify-center">
+
+  <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md text-center">
+
+    <!-- App Title -->
+    <h1 class="text-2xl font-bold text-gray-800 mb-4">Excel to PDF Converter</h1>
+    <p class="text-sm text-gray-600 mb-6">Upload your Excel file and download a clean, print-ready PDF. Free plan includes 3 conversions/day.</p>
+
+    <!-- File Upload Form -->
+    <form action="/convert" method="post" enctype="multipart/form-data" class="space-y-4">
+      <input type="file" name="excel_file" accept=".xls,.xlsx" required
+             class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full
+                    file:border-0 file:text-sm file:font-semibold file:bg-blue-500 file:text-white hover:file:bg-blue-600">
+      
+      <button type="submit"
+              class="w-full bg-purple-600 text-white py-2 rounded-lg shadow hover:bg-purple-700 transition">
+        Convert to PDF
+      </button>
+    </form>
+
+    <!-- Divider -->
+    <div class="my-6 border-t border-gray-300"></div>
+
+    <!-- Pro Plan -->
+    <h2 class="text-lg font-semibold text-gray-800 mb-2">Upgrade to Pro</h2>
+    <p class="text-sm text-gray-600 mb-4">Unlimited conversions · No ads · Fast queue</p>
+
+    <button id="pay-button"
+            class="w-full bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition">
+      Buy Pro Plan – ₹49
+    </button>
+
+    <!-- Payment Script -->
+    <script>
+      document.getElementById('pay-button').onclick = function(e){
+        var options = {
+            "key": "rzp_test_YourKeyHere", // 🔑 Replace with your Razorpay Key ID
+            "amount": 4900, // ₹49 in paise
+            "currency": "INR",
+            "name": "Sheet2PDF",
+            "description": "Pro Plan - Unlimited Conversions",
+            "image": "https://yourcdnlink.com/logo.png", // Optional logo URL
+            "handler": function (response){
+                alert("✅ Payment Successful!\nPayment ID: " + response.razorpay_payment_id);
+                // TODO: Unlock pro features here (e.g., set a flag in localStorage or redirect)
+            },
+            "prefill": {
+                "name": "Your User",
+                "email": "user@example.com"
+            },
+            "theme": {
+                "color": "#0f766e"
+            }
+        };
+        var rzp = new Razorpay(options);
+        rzp.open();
+        e.preventDefault();
+      }
+    </script>
+
+    <!-- Footer -->
+    <p class="text-xs text-gray-400 mt-6">
+      © 2025 Sheet2PDF · Built with ❤️ for Bharat
+    </p>
+
+  </div>
+
+</body>
+</html>
